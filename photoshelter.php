@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: PhotoShelter Official Plugin
+Plugin Name: PhotoShelter Plugin - Daily Mod
 Description: Post your photos and galleries from PhotoShelter.
-Author: PhotoShelter
+Author: PhotoShelter and Tufts Daily
 Author URI: http://www.photoshelter.com
 Plugin URI: http://www.photoshelter.com/help/tut/market/plugin
 Version: 1.5.4

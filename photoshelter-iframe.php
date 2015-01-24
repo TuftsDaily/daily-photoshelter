@@ -3,13 +3,13 @@
 </script>
 
 <style type="text/css">
-<?php include( WP_PLUGIN_DIR . '/photoshelter-official-plugin/style.css');?>
+<?php include( WP_PLUGIN_DIR . '/daily-photoshelter/style.css');?>
 </style>
 
 <?php
-require_once( WP_PLUGIN_DIR . '/photoshelter-official-plugin/photoshelter-psiframe.php');
+require_once( WP_PLUGIN_DIR . '/daily-photoshelter/photoshelter-psiframe.php');
 echo "<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>";
-echo "<script type='text/javascript' src='" . get_bloginfo('wpurl') . "/wp-content/plugins/photoshelter-official-plugin/main.js'></script>";
+echo "<script type='text/javascript' src='" . get_bloginfo('wpurl') . "/wp-content/plugins/daily-photoshelter/main.js'></script>";
 
 global $psc;
 $iframe = new PSIFrame($psc);

@@ -9,11 +9,41 @@ Version: 1.5.4
 License: GPLv2 - http://www.gnu.org/licenses/gpl-2.0.html
 */
 
+
+
+// Add a Button in the Featured Image Box for Adding from PS
+add_filter('admin_post_thumbnail_html', 'ps_daily_thumbnail_html');
+function ps_daily_thumbnail_html($content) {
+	global $post_ID, $temp_ID;
+	$uploading_iframe_ID = (int) (0 == $post_ID ? $temp_ID : $post_ID);
+
+	$iframe_src = "media-upload.php?post_id=$uploading_iframe_ID";
+	$iframe_src = apply_filters('iframe_src', "$iframe_src&amp;type=shelter");
+
+	$content = "<a href=\"{$iframe_src}&amp;TB_iframe=true&amp;height=500&amp;width=640\" class=\"thickbox button-primary\">Set from Photoshelter</a>".$content;
+	return $content;
+}
+
+// TODO This
+add_action('wp_ajax_featured_image_from_photoshelter', 'ps_daily_set_featured_image');
+function ps_daily_set_featured_image() {
+
+	// Generate Correct Size Image w/ Photoshelter API
+	
+	// Set Featured Image in Post Meta
+
+}
+
+// TODO
+// Create Another Hook to Show the Featured Image Thumbnail from Photoshelter
+
+
+
 register_activation_hook(__FILE__, 'photoshelter_activate');
 
 add_shortcode('photoshelter-gallery', 'photoshelter_gallery_handler');
 add_shortcode('photoshelter-img', 'photoshelter_img_handler');
-require_once( WP_PLUGIN_DIR . '/photoshelter-official-plugin/photoshelter-psiframe.php');
+require_once( WP_PLUGIN_DIR . '/daily-photoshelter/photoshelter-psiframe.php');
 
 function photoshelter_gallery_handler($atts, $content = null, $code="") {
 	$map = array(
@@ -175,7 +205,7 @@ function verify_simplexml()
 
 function add_menu()
 {
-	add_menu_page('PS Option page', 'PhotoShelter', 'administrator', 'photoshelter-admin', 'ps_option_page', WP_PLUGIN_URL . '/photoshelter-official-plugin/img/ps_menu_icon.png');
+	add_menu_page('PS Option page', 'PhotoShelter', 'administrator', 'photoshelter-admin', 'ps_option_page', WP_PLUGIN_URL . '/daily-photoshelter/img/ps_menu_icon.png');
 }
 
 function ps_admin_css() {
@@ -410,6 +440,7 @@ function media_upload_type_shelter() {
 	}
 }
 
+
 function logout()
 {
 	if( isset($_POST['photoshelter_logout']) && $_POST['photoshelter_logout'] == 'logout' ) {
@@ -499,7 +530,7 @@ function add_photoshelter_menu() {
 function add_photoshelter_button() {
 	global $post_ID, $temp_ID;
 	//location of wordpress plugin folder
-	$pluginURI = WP_PLUGIN_URL . '/photoshelter-official-plugin';
+	$pluginURI = WP_PLUGIN_URL . '/daily-photoshelter';
 	// the id of the post or whatever for media uploading
 	$uploading_iframe_ID = (int) (0 == $post_ID ? $temp_ID : $post_ID);
 	$iframe_src = "media-upload.php?post_id=$uploading_iframe_ID";
@@ -558,7 +589,7 @@ function ps_get_blog_url() {
 	}
 }
 
-include_once( WP_PLUGIN_DIR . '/photoshelter-official-plugin/photoshelter_client.php');
+include_once( WP_PLUGIN_DIR . '/daily-photoshelter/photoshelter_client.php');
 
 $GLOBALS['psc'] = new Photoshelter_Client();
 

@@ -284,6 +284,7 @@ class PSIframe {
 		echo '<p id="buy" style="display:none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="F_BAR" value="true"/><label>Disable "Buy" button on priced images</label></p>';
 		echo '<p><input type="checkbox" name="F_CAP"><label>Include caption</label><p>';
 		echo '<input type="submit" value="Insert image" class="button-primary ps_login_input show" />';
+		echo '<a href="#" class="button-primary" style="margin-left: 10px;" id="ps-daily-use-feat">Use as Featured Image</a>';
 		echo '<input type="hidden" name="I_ID" value="'.$I_ID.'"/>';
 		echo '<input type="hidden" name="G_ID" value="'.$G_ID.'"/>';
 		echo '<input type="hidden" name="G_NAME" value="'.$G_NAME.'"/>';

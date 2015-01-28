@@ -24,13 +24,55 @@ function ps_daily_thumbnail_html($content) {
 	return $content;
 }
 
-// TODO This
+// UNTESTED
 add_action('wp_ajax_featured_image_from_photoshelter', 'ps_daily_set_featured_image');
 function ps_daily_set_featured_image() {
 
+	if (!isSet($_GET['ps_img_id'])) { return false; }
+	$imgID = $_GET['ps_img_id'];
+	//if (!isSet($_GET['ps_post_id'])) { return false; }
+	//$postID = $_GET['ps_post_id'];
+
 	// Generate Correct Size Image w/ Photoshelter API
-	
+	$sizes = array(
+		array(110, 80),
+		array(312, 375),
+		array(752, 535),
+		array(284, 190),
+		array(293, 170),
+		array(534, 265),
+		array(938, 535)
+	);
+	$imgLinks = array();
+	foreach($sizes as $s) {
+		list($w,$h) = $s;
+		$imgLinks[] = ps_gen_featured_image_size($w,$h);
+	}
+
+	var_dump($imgLinks);
+	die();
+
 	// Set Featured Image in Post Meta
+	//update_post_meta($postID, 'ps_images');
+
+}
+
+function ps_gen_featured_image_size($width, $height) {
+
+	$options = array(
+		'api_key' => 'w3H7eIyluvI',
+		'image_mode' => 'fill',
+		'image_size' => $width.'x'.$height
+	);
+	$url = 'http://photoshelter.com/psapi/v3/image/'.$imgID.'/link'.http_build_query($options);
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	$response = curl_exec($ch);
+	curl_close($ch);
+
+	return $response;
 
 }
 
